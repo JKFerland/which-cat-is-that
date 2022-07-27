@@ -6,11 +6,11 @@ import Routes from "./Routes";
 
 function App() {
   return (
-    <div className="App py-3 container-fullwidth">
+    <div className="App">
       <Navbar>
         <div className="navbar-header">
-          <Navbar.Brand href="#home">🐈 Which cat is that?</Navbar.Brand>
-          <hr />
+          <Navbar.Brand href="#home" className="text-white">🐈 Which cat is that?</Navbar.Brand>
+          <hr className="hr"/>
         </div>
       </Navbar>
       <Routes />
