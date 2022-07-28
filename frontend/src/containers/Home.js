@@ -1,5 +1,6 @@
 import "./Home.css";
 import React, { useEffect, useState } from "react";
+
 export default function Home() {
     const options = [{ name: 'norton', isName: true }, { name: 'neville', isName: false }, { name: 'nathan', isName: false }, { name: 'ninja', isName: false }];
     const [option1Clicked, setoption1Clicked] = useState(false);
@@ -7,14 +8,17 @@ export default function Home() {
     const [option3Clicked, setoption3Clicked] = useState(false);
     const [option4Clicked, setoption4Clicked] = useState(false);
     const [answeredCorrectly, setAnsweredCorrectly] = useState(false);
+    let today = new Date().toLocaleDateString().split("/").join(":");
+    today = encodeURIComponent(today).concat(".JPG");
+
     // ? How do we know in state when answered correctly ?
     // useEffect(() => { options.map((option, index) => { if (option.isName && index === 1 && option1Clicked) setAnsweredCorrectly(true); if (option.isName && index === 2 && option2Clicked) setAnsweredCorrectly(true); if (option.isName && index === 3 && option3Clicked) setAnsweredCorrectly(true); if (option.isName && index === 4 && option4Clicked) setAnsweredCorrectly(true); }); }, [option1Clicked, option2Clicked, option3Clicked, option4Clicked, options])
-    options.map((option, index) => { if (option.isName && index === 1 && option1Clicked) setAnsweredCorrectly(true); if (option.isName && index === 2 && option2Clicked) setAnsweredCorrectly(true); if (option.isName && index === 3 && option3Clicked) setAnsweredCorrectly(true); if (option.isName && index === 4 && option4Clicked) setAnsweredCorrectly(true); });
-    console.log(answeredCorrectly);
+    // options.map((option, index) => { if (option.isName && index === 1 && option1Clicked) setAnsweredCorrectly(true); if (option.isName && index === 2 && option2Clicked) setAnsweredCorrectly(true); if (option.isName && index === 3 && option3Clicked) setAnsweredCorrectly(true); if (option.isName && index === 4 && option4Clicked) setAnsweredCorrectly(true); });
+    console.log(today);
 
     return (
         <div className="Home">
-            <div class="rectangle"></div>
+            <img src={`https://whichcatisthat-whichcatisthat-catsbucket8932fb36-1vzp08fjbynx5.s3.us-west-1.amazonaws.com/${today}`} />
             <div class="parent">
                 {answeredCorrectly ? <>ayo</> :
                     options.map((option, index) => {
@@ -47,6 +51,6 @@ export default function Home() {
                     })
                 }
             </div>
-        </div>
+        </div >
     );
 }

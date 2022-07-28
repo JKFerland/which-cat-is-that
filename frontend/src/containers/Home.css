@@ -67,3 +67,9 @@
 .div4 {
     grid-area: 2 / 2 / 3 / 3;
 }
+
+Img {
+    height: 20.625rem;
+    width: 20.625rem;
+    align-self: center;
+}
