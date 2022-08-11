@@ -1,9 +1,25 @@
-import { Bucket } from "@serverless-stack/resources";
+import { Bucket, Table } from "@serverless-stack/resources";
 
 export function StorageStack({ stack, app }) {
   // Create an S3 bucket
-  const bucket = new Bucket(stack, "Uploads");
+  const bucket = new Bucket(stack, "Cats", {
+    cors: [
+      {
+        allowedOrigins: ["*"],
+        allowedHeaders: ["*"],
+        allowedMethods: ["GET", "PUT", "POST", "DELETE", "HEAD"],
+      },
+    ],
+  });
+  const optionsTable = new Table(stack, "Options", {
+    fields: {
+      date: "string",
+      options: "string"
+    },
+    primaryIndex: { partitionKey: "date" },
+  });
   return {
     bucket,
+    optionsTable
   };
 }
