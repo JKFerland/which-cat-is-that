@@ -14,8 +14,9 @@ export function StorageStack({ stack, app }) {
   const optionsTable = new Table(stack, "Options", {
     fields: {
       date: "string",
-      options: "string"
+      options: "binary"
     },
+
     primaryIndex: { partitionKey: "date" },
   });
   return {

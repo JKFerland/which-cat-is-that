@@ -8,58 +8,45 @@ function getGame() {
 }
 
 export default function Home() {
-    const options = [{ name: 'norton', isName: true, selected: false }, { name: 'neville', isName: false, selected: false }, { name: 'nathan', isName: false, selected: false }, { name: 'ninja', isName: false, selected: false }];
-    const [test, setTest] = useState(options);
-    const [game, setGame] = useState();
-    const [isLoading, setIsLoading] = useState(true);
+    const [options, setOptions] = useState();
     useEffect(() => {
-        function getGame() {
-            return API.get("game", "/game");
-        }
-
         async function onLoad() {
             try {
                 const game = await getGame();
-
-                setGame(game);
+                setOptions(Object.values(game.options));
             } catch (e) {
                 // onError(e);
             }
         }
-
         onLoad();
     }, []);
-    const updateStateValue = (name) => {
-        const newState = test?.map((obj) => {
-            if (obj.name === name) {
-                return { ...obj, selected: !obj.selected };
+    const updateOptions = (name) => {
+        const newState = options?.map((option) => {
+            if (option.name === name) {
+                return { ...option, selected: !option.selected };
             }
-            return obj;
+            return option;
         });
-        setTest(newState);
+        setOptions(newState);
     };
     let today = new Date().toLocaleDateString().split("/").join(":");
     today = encodeURIComponent(today).concat(".JPG");
 
-    // ? How do we know in state when answered correctly ?
-    // useEffect(() => { options.map((option, index) => { if (option.isName && index === 1 && option1Clicked) setAnsweredCorrectly(true); if (option.isName && index === 2 && option2Clicked) setAnsweredCorrectly(true); if (option.isName && index === 3 && option3Clicked) setAnsweredCorrectly(true); if (option.isName && index === 4 && option4Clicked) setAnsweredCorrectly(true); }); }, [option1Clicked, option2Clicked, option3Clicked, option4Clicked, options])
-    // options.map((option, index) => { if (option.isName && index === 1 && option1Clicked) setAnsweredCorrectly(true); if (option.isName && index === 2 && option2Clicked) setAnsweredCorrectly(true); if (option.isName && index === 3 && option3Clicked) setAnsweredCorrectly(true); if (option.isName && index === 4 && option4Clicked) setAnsweredCorrectly(true); });
-    // console.log(today);
 
     return (
         <div className="Home">
-            <Cat src={`https://whichcatisthat-whichcatisthat-catsbucket8932fb36-1vzp08fjbynx5.s3.us-west-1.amazonaws.com/${today}`} />
+            <Cat src={`https://whichcatisthat-whichcatisthat-catsbucket8932fb36-1vzp08fjbynx5.s3.us-west-1.amazonaws.com/7:27:2022.JPG`} />
             <SquareContainer>
-                {
-                    options.map((option, index) => {
-                        if (test[index].selected)
-                            return (<Square isCorrect={test[index].isName}>{option.name}</Square>);
-                        return (<Square onClick={() => updateStateValue(option.name)}>{option.name}</Square>);
-                    })
-                }
+                {options && options.map((option, index) => {
+                    if (option.selected) {
+                        return (<Square isCorrect={options[index].isName}>{option.name}</Square>);
+                    }
+                    return (<Square onClick={() => updateOptions(option.name)}>{option.name}</Square>)
+                })}
             </SquareContainer>
         </div >
     );
+
 }
 
 const Cat = styled('img', {

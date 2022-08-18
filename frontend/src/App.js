@@ -10,7 +10,7 @@ function App() {
       <Navbar>
         <div className="navbar-header">
           <Navbar.Brand href="#home" className="text-white">🐈 Which cat is that?</Navbar.Brand>
-          <hr className="hr"/>
+          <hr className="hr" />
         </div>
       </Navbar>
       <Routes />
